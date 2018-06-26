@@ -61,5 +61,3 @@ $heureka->getData()
 ```
 > Get data from associate function
 
-> Decoded heureka xml input to array
-
