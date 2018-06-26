@@ -2,8 +2,8 @@
 	"name": "relisoft/xmlparser",
 	"description": "XML parser from symfony to nette, heureka decoder",
 	"homepage": "https://relisoft.cz",
-	"type": "project",
-	"license": ["BSD-3-Clause", "GPL-2.0", "GPL-3.0"],
+	"type": "library",
+	"license": ["MIT"],
 	"authors": [
 		{
 			"name": "Stanislav Isigar Opletal",

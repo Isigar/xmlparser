@@ -2,6 +2,10 @@
 Nette XML parser, heureka parser
 
 ### Setup
+```
+composer require relisoft/xmlparser
+```
+
 
 > config.neon
 ```
