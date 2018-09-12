@@ -7,6 +7,7 @@
  */
 
 namespace Relisoft\XMLParser\Entity;
+use Tracy\Debugger;
 
 
 /**
@@ -53,21 +54,56 @@ class HeurekaProduct
     private $delivery_date;
 
     /**
+     * @var string
+     */
+    private $ppchitname;
+
+    /**
+     * @var array
+     */
+    private $param;
+    /**
+     * @var string
+     */
+    private $ean;
+    /**
+     * @var int
+     */
+    private $itemgroup_id;
+    /**
+     * @var string
+     */
+    private $manufacturer;
+
+    /**
      * HeurekaProduct constructor.
      * @param array $data
      */
     public function __construct(array $data)
     {
         try{
-            $this->setId($data['ITEM_ID']);
-            $this->setProductname($data['PRODUCTNAME']);
-            $this->setProduct($data['PRODUCT']);
-            $this->setUrl($data['URL']);
-            $this->setImg($data['IMGURL']);
-            $this->setDescription($data['DESCRIPTION']);
-            $this->setCategorytext($data['CATEGORYTEXT']);
-            $this->setDeliveryDate($data['DELIVERY_DATE']);
-            $this->setPriceVat($data['PRICE_VAT']);
+            $this->setId(isset($data['ITEM_ID']) ? $data['ITEM_ID'] : null);
+            $this->setProductname(isset($data['PRODUCTNAME']) ? $data['PRODUCTNAME'] : null);
+            $this->setProduct(isset($data['PRODUCT']) ? $data['PRODUCT'] : null);
+            $this->setUrl(isset($data['URL']) ? $data['URL'] : null);
+            $this->setImg(isset($data['IMGURL']) ? $data['IMGURL'] : null);
+            $this->setDescription(isset($data['DESCRIPTION']) ? $data['DESCRIPTION'] : null);
+            $this->setCategorytext(isset($data['CATEGORYTEXT']) ? $data['CATEGORYTEXT'] : null);
+            $this->setDeliveryDate(isset($data['DELIVERY_DATE']) ? $data['DELIVERY_DATE'] : null);
+            $this->setPriceVat(isset($data['PRICE_VAT']) ? $data['PRICE_VAT'] : null);
+            $this->setEan(isset($data['EAN']) ? $data['EAN'] : null);
+            $this->setItemgroupId(isset($data['ITEMGROUP_ID']) ? $data['ITEMGROUP_ID'] : null);
+            $this->setPpchitname(isset($data['PPCHITNAME']) ? $data['PPCHITNAME'] : null);
+            $this->setManufacturer(isset($data['MANUFACTURER']) ? $data['MANUFACTURER'] : null);
+            if(isset($data["PARAM"])){
+                foreach ($data["PARAM"] as $param){
+                   if(is_array($param)){
+                       $this->param[] = new HeurekaProductParam($param);
+                   }else{
+                       $this->param[] = new HeurekaProductParam($data["PARAM"]);
+                   }
+                }
+            }
         }catch (\Exception $e){
             throw new \UnexpectedValueException('Wrong data schema!');
         }
@@ -95,6 +131,86 @@ class HeurekaProduct
     public function getProductname()
     {
         return $this->productname;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPpchitname(): string
+    {
+        return $this->ppchitname;
+    }
+
+    /**
+     * @param string $ppchitname
+     */
+    public function setPpchitname(string $ppchitname): void
+    {
+        $this->ppchitname = $ppchitname;
+    }
+
+    /**
+     * @return array
+     */
+    public function getParam(): array
+    {
+        return $this->param;
+    }
+
+    /**
+     * @param array $param
+     */
+    public function setParam(array $param): void
+    {
+        $this->param = $param;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEan(): string
+    {
+        return $this->ean;
+    }
+
+    /**
+     * @param string $ean
+     */
+    public function setEan(string $ean): void
+    {
+        $this->ean = $ean;
+    }
+
+    /**
+     * @return int
+     */
+    public function getItemgroupId(): int
+    {
+        return $this->itemgroup_id;
+    }
+
+    /**
+     * @param int $itemgroup_id
+     */
+    public function setItemgroupId(int $itemgroup_id): void
+    {
+        $this->itemgroup_id = $itemgroup_id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getManufacturer(): string
+    {
+        return $this->manufacturer;
+    }
+
+    /**
+     * @param string $manufacturer
+     */
+    public function setManufacturer(string $manufacturer): void
+    {
+        $this->manufacturer = $manufacturer;
     }
 
     /**
